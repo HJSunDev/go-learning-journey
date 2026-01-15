@@ -1,0 +1,37 @@
+# Go 编译产物与依赖
+# Go binaries for executables
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+dist/
+bin/
+
+# Go 模块缓存与依赖锁定（本地开发）
+# 注：go.sum 需要提交，记录依赖的哈希值
+vendor/
+
+# IDE 与编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 环境变量与本地配置
+.env
+.env.local
+*.local
+
+# Go 官方工具生成的文件
+# dlv (debugger) 配置
+.dlv
+
+# 临时与构建文件
+tmp/
+temp/
+*.log
+*.out
