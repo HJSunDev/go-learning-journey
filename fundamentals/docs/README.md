@@ -21,6 +21,8 @@
   - 基本类型、复合类型、零值机制、值类型 vs 引用类型、类型转换、自定义类型
 - **[005. Go 控制流：条件判断与循环](notes/005-control-flow.md)**
   - if-else、switch、for 循环、for range、break/continue、defer 延迟执行
+- **[006. Go 切片与数组：动态与固定的选择](notes/006-slices-and-arrays.md)**
+  - 切片创建与操作、len/cap、append、slices 标准库、二维切片、数组使用场景
 
 
 ## 📝 维护指南
