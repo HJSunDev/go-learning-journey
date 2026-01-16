@@ -10,6 +10,8 @@
   - Chapter 1: Windows Go 语言开发环境配置 (GOROOT, GOPATH, GOPROXY)
 - **[002. Go 工程化：项目结构与工作区模式](notes/002-project-layout-and-workspace.md)**
   - go.mod / go.work 的区别与协作、目录规范、核心命令详解
+- **[003. Hello World：第一个 Go 程序](notes/003-hello-world.md)**
+  - package main、fmt 包、main 函数、go build、go run、路径前缀
 
 ## 🧩 阶段二：核心概念与后端架构
 
