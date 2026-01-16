@@ -19,6 +19,8 @@
 
 - **[004. Go 类型系统：值类型与引用类型](notes/004-types-and-values.md)**
   - 基本类型、复合类型、零值机制、值类型 vs 引用类型、类型转换、自定义类型
+- **[005. Go 控制流：条件判断与循环](notes/005-control-flow.md)**
+  - if-else、switch、for 循环、for range、break/continue、defer 延迟执行
 
 
 ## 📝 维护指南
