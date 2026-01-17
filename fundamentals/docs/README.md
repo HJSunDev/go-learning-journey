@@ -25,6 +25,8 @@
   - 切片创建与操作、len/cap、append、slices 标准库、二维切片、数组使用场景
 - **[007. Go 映射（Map）：键值对的艺术](notes/007-maps.md)**
   - Map 创建与操作、comma-ok 模式、键存在性检查、遍历、键类型要求、maps 标准库
+- **[008. Go Range 迭代器：优雅的遍历之道](notes/008-range-and-strings.md)**
+  - range 语法、切片/数组/映射/字符串遍历、strings 标准库、range 陷阱
 
 ## 📝 维护指南
 
