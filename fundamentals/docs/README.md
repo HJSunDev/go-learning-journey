@@ -27,6 +27,8 @@
   - Map 创建与操作、comma-ok 模式、键存在性检查、遍历、键类型要求、maps 标准库
 - **[008. Go Range 迭代器：优雅的遍历之道](notes/008-range-and-strings.md)**
   - range 语法、切片/数组/映射/字符串遍历、strings 标准库、range 陷阱
+- **[009. Go 函数：代码复用的基石](notes/009-functions.md)**
+  - 函数定义与调用、参数传递、多返回值、可变参数、函数类型、高阶函数、递归、defer
 
 ## 📝 维护指南
 
