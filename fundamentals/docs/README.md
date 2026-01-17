@@ -13,7 +13,7 @@
 - **[003. Hello World：第一个 Go 程序](notes/003-hello-world.md)**
   - package main、fmt 包、main 函数、go build、go run、路径前缀
 
-## 🧩 阶段二：核心概念与后端架构
+## 🧩 阶段二：核心概念
 
 > 新的笔记将自动添加到下方
 
@@ -23,7 +23,8 @@
   - if-else、switch、for 循环、for range、break/continue、defer 延迟执行
 - **[006. Go 切片与数组：动态与固定的选择](notes/006-slices-and-arrays.md)**
   - 切片创建与操作、len/cap、append、slices 标准库、二维切片、数组使用场景
-
+- **[007. Go 映射（Map）：键值对的艺术](notes/007-maps.md)**
+  - Map 创建与操作、comma-ok 模式、键存在性检查、遍历、键类型要求、maps 标准库
 
 ## 📝 维护指南
 
