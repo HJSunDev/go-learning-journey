@@ -39,6 +39,8 @@
   - 接口定义与隐式实现、io.Writer 经典案例、接口值内部结构、类型断言与类型选择、空接口 any、接口组合、设计原则
 - **[014. Go 枚举：用 const 和 iota 构建类型安全的常量集合](notes/014-enums.md)**
   - const 常量定义、iota 自动递增、自定义类型增加类型安全、枚举方法（String/业务逻辑）、iota 进阶用法
+- **[015. Go 泛型（Generics）：一次编写，多种类型](notes/015-generics.md)**
+  - 泛型函数、类型参数与约束、comparable/any/自定义约束、泛型类型、Filter/Map/Reduce 集合操作
 
 ## 📝 维护指南
 
