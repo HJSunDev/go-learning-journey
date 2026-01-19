@@ -42,6 +42,13 @@
 - **[015. Go 泛型（Generics）：一次编写，多种类型](notes/015-generics.md)**
   - 泛型函数、类型参数与约束、comparable/any/自定义约束、泛型类型、Filter/Map/Reduce 集合操作
 
+## 🚀 阶段三：并发编程
+
+> 协程、通道与并发模式
+
+- **[016. Go 协程（Goroutine）：轻量级并发的基石](notes/016-goroutines.md)**
+  - 协程本质与优势、go 关键字、sync.WaitGroup 等待组、闭包变量捕获陷阱、sync.Mutex 互斥锁
+
 ## 📝 维护指南
 
 - 所有的详细笔记存放在 `docs/notes/` 目录下。
