@@ -48,6 +48,8 @@
 
 - **[016. Go 协程（Goroutine）：轻量级并发的基石](notes/016-goroutines.md)**
   - 协程本质与优势、go 关键字、sync.WaitGroup 等待组、闭包变量捕获陷阱、sync.Mutex 互斥锁
+- **[017. Go 通道（Channel）：协程间通信的桥梁](notes/017-channels.md)**
+  - 无缓冲/有缓冲通道、发送/接收/关闭、for range 遍历、select 多路复用、死锁、工作池模式
 
 ## 📝 维护指南
 
