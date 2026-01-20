@@ -50,6 +50,8 @@
   - 协程本质与优势、go 关键字、sync.WaitGroup 等待组、闭包变量捕获陷阱、sync.Mutex 互斥锁
 - **[017. Go 通道（Channel）：协程间通信的桥梁](notes/017-channels.md)**
   - 无缓冲/有缓冲通道、发送/接收/关闭、for range 遍历、select 多路复用、死锁、工作池模式
+- **[018. Go 互斥锁（Mutex）：并发安全的守护者](notes/018-mutex.md)**
+  - 数据竞争问题、锁的概念（悲观锁/乐观锁）、Mutex 与 RWMutex、死锁陷阱、临界区最小化
 
 ## 📝 维护指南
 
