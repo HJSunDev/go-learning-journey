@@ -1,3 +1,6 @@
 go 1.25.5
 
-use ./fundamentals
+use (
+	./fundamentals
+	./fundamentals/020-packages
+)
