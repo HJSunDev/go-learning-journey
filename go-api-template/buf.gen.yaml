@@ -1,0 +1,23 @@
+# Buf 代码生成配置
+# 定义如何从 .proto 文件生成代码
+# 详细文档: https://buf.build/docs/configuration/v2/buf-gen-yaml
+
+version: v2
+
+# 输入源
+inputs:
+  - directory: api
+
+# 插件配置
+plugins:
+  # 生成 Go 结构体
+  - remote: buf.build/protocolbuffers/go
+    out: api
+    opt:
+      - paths=source_relative
+
+  # 生成 gRPC Go 代码
+  - remote: buf.build/grpc/go
+    out: api
+    opt:
+      - paths=source_relative
