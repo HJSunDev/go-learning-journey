@@ -1,4 +1,4 @@
-# 002. Protobuf 与 Buf 工具链
+# 003. Protobuf 与 Buf 工具链
 
 本章介绍第二阶段所需的开发工具：Buf CLI、protoc-gen-go、protoc-gen-go-grpc。
 

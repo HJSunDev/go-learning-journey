@@ -1,18 +1,16 @@
 # Buf 模块配置
 # 用于管理 Protocol Buffers 依赖和 lint 规则
-# 详细文档: https://buf.build/docs/configuration/v2/buf-yaml
+# 详细文档: https://buf.build/docs/configuration/v1/buf-yaml
 
-version: v2
+version: v1
 
-# 模块定义
-modules:
-  - path: .
-    name: buf.build/go-api-template/api
+# 模块名称
+name: buf.build/go-api-template/api
 
 # Lint 规则
 lint:
   use:
-    - STANDARD
+    - DEFAULT
 
 # Breaking change 检测
 breaking:

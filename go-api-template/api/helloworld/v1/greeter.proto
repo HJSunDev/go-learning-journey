@@ -1,0 +1,26 @@
+// API 接口定义：Greeter 服务
+// 这是 Schema First 开发模式的核心，先定义接口契约，再编写实现代码
+
+syntax = "proto3";
+
+package helloworld.v1;
+
+option go_package = "go-api-template/api/helloworld/v1;v1";
+
+// GreeterService 提供问候相关的服务
+service GreeterService {
+  // SayHello 向指定用户发送问候
+  rpc SayHello(SayHelloRequest) returns (SayHelloResponse);
+}
+
+// SayHelloRequest SayHello 方法的请求参数
+message SayHelloRequest {
+  // 要问候的用户名称
+  string name = 1;
+}
+
+// SayHelloResponse SayHello 方法的响应结果
+message SayHelloResponse {
+  // 问候消息
+  string message = 1;
+}
