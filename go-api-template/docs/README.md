@@ -26,6 +26,11 @@
   - 目录结构创建、go mod 初始化
   - Gin HTTP Server 启动
 
+- **[002b. Makefile 入门](notes/002b-makefile-introduction.md)**
+  - Makefile 是什么、为什么需要它
+  - 本项目可用命令一览
+  - Windows 用户安装指南
+
 ### 二、API 定义
 
 - **[003. Protobuf 与 Buf 工具链](notes/003-protobuf-and-buf-toolchain.md)**
