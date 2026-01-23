@@ -1,0 +1,64 @@
+# ============================================================
+# Go API Template 配置文件模板
+#
+# 使用说明：
+# 1. 复制此文件为 config.yaml
+# 2. 根据你的环境修改配置值
+# 3. 敏感信息建议通过环境变量覆盖
+#
+# 环境变量覆盖规则：
+# - 将配置路径中的 "." 替换为 "_"，并全部大写
+# - 例如：database.password -> DATABASE_PASSWORD
+#
+# 常用环境变量：
+# - APP_ENV=production           # 切换到生产环境
+# - APP_PORT=3000               # 修改服务端口
+# - DATABASE_PASSWORD=xxx       # 数据库密码
+# - REDIS_PASSWORD=xxx          # Redis 密码
+# - JWT_SECRET=xxx              # JWT 签名密钥
+# ============================================================
+
+# === 应用基础配置 ===
+app:
+  name: go-api-template
+  # 运行环境：development | production
+  env: development
+  # HTTP 服务监听端口
+  port: 8080
+
+# === 日志配置 ===
+log:
+  # 日志级别：debug | info | warn | error
+  level: info
+  # 日志格式：text | json (生产环境建议 json)
+  format: text
+
+# === 数据库配置 ===
+database:
+  # 数据库驱动：postgres | mysql | sqlite
+  driver: postgres
+  host: localhost
+  port: 5432
+  database: go_api_template
+  username: postgres
+  # 密码请通过环境变量 DATABASE_PASSWORD 设置
+  password: ""
+
+  # 连接池配置
+  max_idle_conns: 10
+  max_open_conns: 100
+  conn_max_lifetime: 1h
+
+# === Redis 配置 ===
+redis:
+  host: localhost
+  port: 6379
+  # 密码请通过环境变量 REDIS_PASSWORD 设置
+  password: ""
+  db: 0
+
+# === JWT 配置 ===
+jwt:
+  # 密钥请通过环境变量 JWT_SECRET 设置（生产环境必须更换）
+  secret: change-this-secret-in-production
+  expires_in: 24h

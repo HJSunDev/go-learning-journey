@@ -7,8 +7,8 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"go-api-template/internal/biz"
+	"go-api-template/internal/conf"
 	"go-api-template/internal/data"
 	"go-api-template/internal/server"
 	"go-api-template/internal/service"
@@ -20,17 +20,17 @@ import (
 // Wire 会分析这个函数，根据 ProviderSet 中的构造函数自动生成依赖组装代码
 //
 // 函数签名说明：
-// - 返回值：最终需要的依赖（*gin.Engine）和可能的错误
+// - 参数：*conf.Config 由 main 加载后传入
+// - 返回值：*server.HTTPServer 封装了 Gin 引擎和配置
 // - 函数体：调用 wire.Build 并传入所有 ProviderSet
-// - panic：占位符，Wire 生成代码后会被替换
-func wireApp() (*gin.Engine, error) {
-	dataData, err := data.NewData()
+func wireApp(c *conf.Config) (*server.HTTPServer, error) {
+	dataData, err := data.NewData(c)
 	if err != nil {
 		return nil, err
 	}
 	greeterRepo := data.NewGreeterRepo(dataData)
 	greeterUsecase := biz.NewGreeterUsecase(greeterRepo)
 	greeterService := service.NewGreeterService(greeterUsecase)
-	engine := server.NewHTTPServer(greeterService)
-	return engine, nil
+	httpServer := server.NewHTTPServer(c, greeterService)
+	return httpServer, nil
 }

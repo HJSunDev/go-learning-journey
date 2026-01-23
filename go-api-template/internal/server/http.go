@@ -6,12 +6,17 @@ import (
 	"github.com/gin-gonic/gin"
 
 	v1 "go-api-template/api/helloworld/v1"
+	"go-api-template/internal/conf"
 	"go-api-template/internal/service"
 )
 
 // NewHTTPServer 创建并配置 HTTP 服务器
+// cfg 提供服务器配置（端口、环境等）
 // greeterSvc 是通过依赖注入传入的服务实例
-func NewHTTPServer(greeterSvc *service.GreeterService) *gin.Engine {
+func NewHTTPServer(cfg *conf.Config, greeterSvc *service.GreeterService) *HTTPServer {
+	// 根据环境设置 Gin 模式
+	setGinMode(cfg)
+
 	engine := gin.Default()
 
 	// 健康检查端点
@@ -24,8 +29,9 @@ func NewHTTPServer(greeterSvc *service.GreeterService) *gin.Engine {
 	// 服务信息端点
 	engine.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"name":    "go-api-template",
+			"name":    cfg.App.Name,
 			"version": "0.1.0",
+			"env":     cfg.App.Env,
 			"message": "Welcome to Go API Template",
 		})
 	})
@@ -33,7 +39,10 @@ func NewHTTPServer(greeterSvc *service.GreeterService) *gin.Engine {
 	// 注册 Greeter 服务的 HTTP 路由
 	registerGreeterRoutes(engine, greeterSvc)
 
-	return engine
+	return &HTTPServer{
+		engine: engine,
+		port:   cfg.App.Port,
+	}
 }
 
 // registerGreeterRoutes 注册 Greeter 服务的 HTTP 路由

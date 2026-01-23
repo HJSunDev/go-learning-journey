@@ -24,6 +24,11 @@ Thumbs.db
 .env.local
 *.local
 
+# 配置文件（包含敏感信息）
+# config.example.yaml 是模板，应该提交到 Git
+# config.yaml 是实际配置，可能包含密码，不应提交
+configs/config.yaml
+
 # Go 调试器配置
 .dlv
 

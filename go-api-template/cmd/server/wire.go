@@ -7,10 +7,10 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
 	"github.com/google/wire"
 
 	"go-api-template/internal/biz"
+	"go-api-template/internal/conf"
 	"go-api-template/internal/data"
 	"go-api-template/internal/server"
 	"go-api-template/internal/service"
@@ -20,10 +20,10 @@ import (
 // Wire 会分析这个函数，根据 ProviderSet 中的构造函数自动生成依赖组装代码
 //
 // 函数签名说明：
-// - 返回值：最终需要的依赖（*gin.Engine）和可能的错误
+// - 参数：*conf.Config 由 main 加载后传入
+// - 返回值：*server.HTTPServer 封装了 Gin 引擎和配置
 // - 函数体：调用 wire.Build 并传入所有 ProviderSet
-// - panic：占位符，Wire 生成代码后会被替换
-func wireApp() (*gin.Engine, error) {
+func wireApp(c *conf.Config) (*server.HTTPServer, error) {
 	// wire.Build 声明所有需要的 Provider
 	// Wire 会分析依赖关系，按正确顺序调用构造函数
 	wire.Build(
