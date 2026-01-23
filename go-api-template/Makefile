@@ -27,9 +27,9 @@ proto-lint:
 proto-format:
 	buf format -w api/
 
-# 生成 Wire 依赖注入代码 (阶段四实现)
+# 生成 Wire 依赖注入代码
 wire:
-	@echo "Wire generation not configured yet. See Phase 4."
+	wire ./cmd/server/
 
 # 整理依赖
 tidy:
@@ -48,6 +48,6 @@ help:
 	@echo "  proto        - Generate code from proto files (with lint check)"
 	@echo "  proto-lint   - Lint check proto files"
 	@echo "  proto-format - Format proto files"
-	@echo "  wire         - Generate dependency injection code (Phase 4)"
+	@echo "  wire         - Generate dependency injection code"
 	@echo "  tidy         - Run go mod tidy"
 	@echo "  test         - Run tests"

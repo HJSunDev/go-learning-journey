@@ -4,8 +4,13 @@ import (
 	"context"
 	"sync/atomic"
 
+	"github.com/google/wire"
+
 	"go-api-template/internal/biz"
 )
+
+// GreeterProviderSet 是 Greeter 模块数据层的依赖提供者集合
+var GreeterProviderSet = wire.NewSet(NewGreeterRepo)
 
 // greeterRepo 实现 biz.GreeterRepo 接口
 // 当前使用内存 Map 存储，未来可替换为数据库实现

@@ -59,7 +59,10 @@
 
 ### 四、依赖注入
 
-- **007. Wire 依赖注入实战** (待创建)
+- **[007. Wire 依赖注入实战](notes/007-wire-dependency-injection.md)**
+  - Google Wire 编译期依赖注入
+  - ProviderSet 与 Injector 模式
+  - 自动生成依赖组装代码
 
 ### 五、持久化
 

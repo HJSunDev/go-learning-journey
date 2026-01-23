@@ -3,9 +3,14 @@ package service
 import (
 	"context"
 
+	"github.com/google/wire"
+
 	v1 "go-api-template/api/helloworld/v1"
 	"go-api-template/internal/biz"
 )
+
+// GreeterProviderSet 是 Greeter 模块服务层的依赖提供者集合
+var GreeterProviderSet = wire.NewSet(NewGreeterService)
 
 // GreeterService 实现 proto 定义的 GreeterServiceServer 接口
 type GreeterService struct {

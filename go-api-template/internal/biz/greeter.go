@@ -4,7 +4,12 @@ import (
 	"context"
 	"fmt"
 	"time"
+
+	"github.com/google/wire"
 )
+
+// GreeterProviderSet 是 Greeter 模块的依赖提供者集合
+var GreeterProviderSet = wire.NewSet(NewGreeterUsecase)
 
 // Greeter 是领域实体，表示一条问候记录
 type Greeter struct {

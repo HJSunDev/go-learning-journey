@@ -4,6 +4,18 @@ package data
 
 import (
 	"sync"
+
+	"github.com/google/wire"
+)
+
+// ProviderSet 聚合 data 层所有模块的 ProviderSet
+// NewData 是基础设施（数据库连接等），单独列出
+// 各模块的 Repository 在各自文件中定义 ProviderSet
+var ProviderSet = wire.NewSet(
+	NewData,             // 基础设施：数据库连接
+	GreeterProviderSet,  // Greeter 模块
+	// UserProviderSet,  // 未来：用户模块
+	// OrderProviderSet, // 未来：订单模块
 )
 
 // Data 是数据层的核心结构，持有所有数据连接和存储
