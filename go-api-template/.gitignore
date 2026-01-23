@@ -1,0 +1,38 @@
+# Go 编译产物与依赖
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+bin/
+dist/
+
+# Go 模块缓存与依赖锁定（本地开发）
+vendor/
+
+# IDE 与编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# 环境变量与本地配置
+.env
+.env.local
+*.local
+
+# Go 调试器配置
+.dlv
+
+# 临时与构建文件
+tmp/
+temp/
+*.log
+*.out
+
+# 测试覆盖率
+coverage.out
+coverage.html
