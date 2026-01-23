@@ -2,32 +2,50 @@ package main
 
 import (
 	"log"
-	"net/http"
 
-	"github.com/gin-gonic/gin"
+	"go-api-template/internal/biz"
+	"go-api-template/internal/data"
+	"go-api-template/internal/server"
+	"go-api-template/internal/service"
 )
 
 func main() {
-	engine := gin.Default()
+	// ========================================
+	// 手动依赖注入（阶段四将使用 Wire 自动化）
+	// ========================================
+	// 依赖组装顺序遵循整洁架构的依赖流向：
+	// Data -> Repo -> Usecase -> Service -> Server
 
-	// 健康检查端点，用于验证服务是否正常运行
-	engine.GET("/health", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"status": "ok",
-		})
-	})
+	// 1. 初始化数据层
+	// 当前使用内存存储，阶段五将替换为真实数据库
+	dataLayer, err := data.NewData()
+	if err != nil {
+		log.Fatalf("Failed to create data layer: %v", err)
+	}
 
-	// 根路径，返回服务基本信息
-	engine.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"name":    "go-api-template",
-			"version": "0.1.0",
-			"message": "Welcome to Go API Template",
-		})
-	})
+	// 2. 创建 Repository（数据层实现 biz 层定义的接口）
+	greeterRepo := data.NewGreeterRepo(dataLayer)
 
+	// 3. 创建业务用例（领域层，依赖 Repository 接口）
+	greeterUsecase := biz.NewGreeterUsecase(greeterRepo)
+
+	// 4. 创建服务（应用层，实现 proto 定义的接口）
+	greeterService := service.NewGreeterService(greeterUsecase)
+
+	// 5. 创建 HTTP 服务器（传输层）
+	httpServer := server.NewHTTPServer(greeterService)
+
+	// ========================================
+	// 启动服务
+	// ========================================
 	log.Println("Starting server on :8080")
-	if err := engine.Run(":8080"); err != nil {
+	log.Println("API endpoints:")
+	log.Println("  GET  /health                       - Health check")
+	log.Println("  GET  /                             - Service info")
+	log.Println("  POST /api/v1/greeter/say-hello     - Say hello (JSON body)")
+	log.Println("  GET  /api/v1/greeter/say-hello/:name - Say hello (URL param)")
+
+	if err := httpServer.Run(":8080"); err != nil {
 		log.Fatalf("Failed to start server: %v", err)
 	}
 }
