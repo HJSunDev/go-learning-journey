@@ -29,7 +29,9 @@
   - Google Wire 编译期依赖注入；ProviderSet 与 Injector 模式；自动生成依赖组装代码
 - **[008. 配置模块](notes/008-configuration-module.md)**
   - Viper 配置库使用；配置结构体设计；环境变量覆盖机制；生产环境部署策略
-- **009. Ent ORM 入门** (待创建)
+- **[009. 优雅关闭](notes/009-graceful-shutdown.md)**
+  - http.Server.Shutdown 机制；信号监听（SIGINT/SIGTERM）；超时控制；生产环境注意事项
+- **010. Ent ORM 入门** (待创建)
 
 ---
 

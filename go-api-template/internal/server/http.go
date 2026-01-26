@@ -39,9 +39,12 @@ func NewHTTPServer(cfg *conf.Config, greeterSvc *service.GreeterService) *HTTPSe
 	// 注册 Greeter 服务的 HTTP 路由
 	registerGreeterRoutes(engine, greeterSvc)
 
+	// 构建 http.Server（支持优雅关闭和超时配置）
+	httpServer := buildHTTPServer(cfg, engine)
+
 	return &HTTPServer{
+		server: httpServer,
 		engine: engine,
-		port:   cfg.App.Port,
 	}
 }
 

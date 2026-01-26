@@ -17,6 +17,7 @@ var ProviderSet = wire.NewSet(LoadConfig)
 // Config 应用根配置，聚合所有配置模块
 type Config struct {
 	App      AppConfig      `mapstructure:"app"`
+	Server   ServerConfig   `mapstructure:"server"`
 	Log      LogConfig      `mapstructure:"log"`
 	Database DatabaseConfig `mapstructure:"database"`
 	Redis    RedisConfig    `mapstructure:"redis"`
@@ -31,6 +32,41 @@ type AppConfig struct {
 	Env string `mapstructure:"env"`
 	// HTTP 服务监听端口
 	Port int `mapstructure:"port"`
+}
+
+// ServerConfig HTTP 服务器配置
+type ServerConfig struct {
+	// 优雅关闭超时时间
+	// 收到关闭信号后，等待正在处理的请求完成的最大时间
+	ShutdownTimeout time.Duration `mapstructure:"shutdown_timeout"`
+	// 读取请求的超时时间（包括请求头和请求体）
+	ReadTimeout time.Duration `mapstructure:"read_timeout"`
+	// 写入响应的超时时间
+	WriteTimeout time.Duration `mapstructure:"write_timeout"`
+}
+
+// GetShutdownTimeout 获取优雅关闭超时时间，提供默认值
+func (c *ServerConfig) GetShutdownTimeout() time.Duration {
+	if c.ShutdownTimeout <= 0 {
+		return 10 * time.Second
+	}
+	return c.ShutdownTimeout
+}
+
+// GetReadTimeout 获取读取超时时间，提供默认值
+func (c *ServerConfig) GetReadTimeout() time.Duration {
+	if c.ReadTimeout <= 0 {
+		return 30 * time.Second
+	}
+	return c.ReadTimeout
+}
+
+// GetWriteTimeout 获取写入超时时间，提供默认值
+func (c *ServerConfig) GetWriteTimeout() time.Duration {
+	if c.WriteTimeout <= 0 {
+		return 30 * time.Second
+	}
+	return c.WriteTimeout
 }
 
 // LogConfig 日志配置
