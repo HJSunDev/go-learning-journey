@@ -17,6 +17,8 @@
   - 五阶段构建路线图；目录结构创建、go mod 初始化；Gin HTTP Server 启动
 - **[002b. Makefile 入门](notes/002b-makefile-introduction.md)**
   - Makefile 是什么、为什么需要它；本项目可用命令一览；Windows 用户安装指南
+- **[002c. Gin 框架入门](notes/002c-gin-framework-introduction.md)**
+  - Gin 本质与核心概念；gin.Engine、gin.Context、gin.HandlerFunc 详解；路由、路由组、响应输出；gin.Engine 与 http.Server 的关系（为何需要两者）；与整洁架构的关系
 - **[003. Protobuf 与 Buf 工具链](notes/003-protobuf-and-buf-toolchain.md)**
   - Buf CLI、protoc-gen-go、protoc-gen-go-grpc 介绍；开发环境 vs 部署环境；配置文件详解与最佳实践
 - **[004. Protobuf 入门](notes/004-protobuf-introduction.md)**
