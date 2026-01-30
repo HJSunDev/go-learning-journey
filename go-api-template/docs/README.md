@@ -33,7 +33,9 @@
   - Viper 配置库使用；配置结构体设计；环境变量覆盖机制；生产环境部署策略
 - **[009. 优雅关闭](notes/009-graceful-shutdown.md)**
   - http.Server.Shutdown 机制；信号监听（SIGINT/SIGTERM）；超时控制；生产环境注意事项
-- **010. Ent ORM 入门** (待创建)
+- **[010. Struct Tag 与 Validator 请求验证](notes/010-struct-tag-and-validator.md)**
+  - Struct Tag 是什么；json Tag 详解；binding Tag 与 Validator 库；完整验证规则大全；处理验证错误
+- **011. Ent ORM 入门** (待创建)
 
 ---
 
