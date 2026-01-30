@@ -7,6 +7,7 @@ import (
 
 	v1 "go-api-template/api/helloworld/v1"
 	"go-api-template/internal/conf"
+	"go-api-template/internal/server/dto"
 	"go-api-template/internal/service"
 )
 
@@ -66,28 +67,25 @@ func registerGreeterRoutes(engine *gin.Engine, svc *service.GreeterService) {
 }
 
 // handleSayHello 处理 POST 请求
+// 使用 DTO 接收请求，Validator 自动验证，然后转换为 Proto 类型调用 Service
 func handleSayHello(svc *service.GreeterService) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		// 使用 proto 生成的请求类型
-		var req v1.SayHelloRequest
+		// 使用 DTO 接收请求（DTO 有 binding tag，会自动验证）
+		var req dto.SayHelloRequest
 
-		// 绑定并验证请求
+		// ShouldBindJSON 会：
+		// 1. 把 JSON 填充到 req
+		// 2. 根据 binding tag 验证（required, min=1, max=100）
+		// 3. 验证失败返回错误
 		if err := c.ShouldBindJSON(&req); err != nil {
 			c.JSON(http.StatusBadRequest, gin.H{
-				"error": "name is required",
+				"error": err.Error(),
 			})
 			return
 		}
 
-		if req.GetName() == "" {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": "name is required",
-			})
-			return
-		}
-
-		// 调用服务
-		resp, err := svc.SayHello(c.Request.Context(), &req)
+		// DTO 转 Proto，调用 Service
+		resp, err := svc.SayHello(c.Request.Context(), req.ToProto())
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{
 				"error": err.Error(),

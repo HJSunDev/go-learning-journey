@@ -35,7 +35,9 @@
   - http.Server.Shutdown 机制；信号监听（SIGINT/SIGTERM）；超时控制；生产环境注意事项
 - **[010. Struct Tag 与 Validator 请求验证](notes/010-struct-tag-and-validator.md)**
   - Struct Tag 是什么；json Tag 详解；binding Tag 与 Validator 库；完整验证规则大全；处理验证错误
-- **011. Ent ORM 入门** (待创建)
+- **[011. DTO 模式与请求验证实践](notes/011-dto-pattern.md)**
+  - DTO 是什么；DTO 与 Proto 的关系和协作；开发流程；在项目中实践自动验证
+- **012. Ent ORM 入门** (待创建)
 
 ---
 
