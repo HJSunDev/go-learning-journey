@@ -43,10 +43,10 @@ type RegisterRequest struct {
 
 ### 2.1 先看 Struct 是什么
 
-在 Go 里，`struct` 就是**一组字段的集合**，类似于：
+在 Go 里，`struct` （结构体）就是**一组字段的集合**，类似于：
 
 - JavaScript 的对象 `{ name: "张三", age: 18 }`
-- TypeScript 的 interface
+- Go中的结构体是 值类型，属于原始类型，值传递，修改需要使用指针： &结构体
 
 **定义一个结构体** = 声明这个结构体有哪些字段，每个字段是什么类型：
 
@@ -388,9 +388,9 @@ curl -X POST -d '{"username":"admin","password":"123456"}' http://localhost:8080
 
 ### 5.1 必填与可选
 
-| 规则          | 含义                     | 示例                          |
-| ------------- | ------------------------ | ----------------------------- |
-| `required`  | 必填，不能是零值         | `binding:"required"`        |
+| 规则          | 含义                                           | 示例                          |
+| ------------- | ---------------------------------------------- | ----------------------------- |
+| `required`  | 必填，不能是零值                               | `binding:"required"`        |
 | `omitempty` | 如果是零值，跳过**该字段**的后续验证规则 | `binding:"omitempty,min=2"` |
 
 **什么是零值？**
@@ -711,7 +711,7 @@ func translateValidationError(err error) []string {
             field := e.Field()
             tag := e.Tag()
             param := e.Param()
-        
+      
             var msg string
             switch tag {
             case "required":

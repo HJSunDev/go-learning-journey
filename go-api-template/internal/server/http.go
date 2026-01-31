@@ -7,6 +7,7 @@ import (
 
 	v1 "go-api-template/api/helloworld/v1"
 	"go-api-template/internal/conf"
+	"go-api-template/internal/pkg/apperrors"
 	"go-api-template/internal/server/dto"
 	"go-api-template/internal/service"
 )
@@ -76,20 +77,20 @@ func handleSayHello(svc *service.GreeterService) gin.HandlerFunc {
 		// ShouldBindJSON 会：
 		// 1. 把 JSON 填充到 req
 		// 2. 根据 binding tag 验证（required, min=1, max=100）
-		// 3. 验证失败返回错误
+		// 3. 验证失败返回错误,err!=nil 表示验证失败
 		if err := c.ShouldBindJSON(&req); err != nil {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": err.Error(),
-			})
+			// 使用统一错误处理：将 validator 错误转换为 AppError
+			appErr := apperrors.FromValidationError(err)
+			c.JSON(appErr.HTTPCode, appErr)
 			return
 		}
 
 		// DTO 转 Proto，调用 Service
 		resp, err := svc.SayHello(c.Request.Context(), req.ToProto())
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
+			// 使用统一错误处理：包装内部错误
+			appErr := apperrors.Internal("服务处理失败", err)
+			c.JSON(appErr.HTTPCode, appErr)
 			return
 		}
 
@@ -104,9 +105,9 @@ func handleSayHelloByPath(svc *service.GreeterService) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		name := c.Param("name")
 		if name == "" {
-			c.JSON(http.StatusBadRequest, gin.H{
-				"error": "name is required",
-			})
+			// 使用统一错误处理
+			appErr := apperrors.InvalidParams("name 参数是必填的")
+			c.JSON(appErr.HTTPCode, appErr)
 			return
 		}
 
@@ -116,9 +117,9 @@ func handleSayHelloByPath(svc *service.GreeterService) gin.HandlerFunc {
 		// 调用服务
 		resp, err := svc.SayHello(c.Request.Context(), req)
 		if err != nil {
-			c.JSON(http.StatusInternalServerError, gin.H{
-				"error": err.Error(),
-			})
+			// 使用统一错误处理：包装内部错误
+			appErr := apperrors.Internal("服务处理失败", err)
+			c.JSON(appErr.HTTPCode, appErr)
 			return
 		}
 

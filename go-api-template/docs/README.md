@@ -37,7 +37,11 @@
   - Struct Tag 是什么；json Tag 详解；binding Tag 与 Validator 库；完整验证规则大全；处理验证错误
 - **[011. DTO 模式与请求验证实践](notes/011-dto-pattern.md)**
   - DTO 是什么；DTO 与 Proto 的关系和协作；开发流程；在项目中实践自动验证
-- **012. Ent ORM 入门** (待创建)
+- **[012. 统一错误处理](notes/012-unified-error-handling.md)**
+  - AppError 类型设计；错误码体系；验证错误转换；友好错误消息
+- **013. 统一响应格式** (待创建)
+- **014. 中间件入门** (待创建)
+- **015. Ent ORM 入门** (待创建)
 
 ---
 
