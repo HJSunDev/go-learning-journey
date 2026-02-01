@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strings"
 
+	"go-api-template/internal/pkg/reason"
+
 	"github.com/go-playground/validator/v10"
 )
 
@@ -17,11 +19,11 @@ type FieldError struct {
 // AppError 应用错误类型
 // 统一的错误结构，包含错误码、消息、HTTP 状态码等信息
 type AppError struct {
-	Code     ErrorCode    `json:"code"`              // 业务错误码
-	Message  string       `json:"message"`           // 错误消息（面向用户）
-	HTTPCode int          `json:"http_code"`         // HTTP 状态码
-	Details  []FieldError `json:"details,omitempty"` // 字段级错误详情
-	Cause    error        `json:"-"`                 // 原始错误（用于日志，不暴露给客户端）
+	Code     reason.Reason `json:"code"`              // 业务错误码
+	Message  string        `json:"message"`           // 错误消息（面向用户）
+	HTTPCode int           `json:"http_code"`         // HTTP 状态码
+	Details  []FieldError  `json:"details,omitempty"` // 字段级错误详情
+	Cause    error         `json:"-"`                 // 原始错误（用于日志，不暴露给客户端）
 }
 
 // Error 实现 error 接口
@@ -40,7 +42,7 @@ func (e *AppError) Unwrap() error {
 // ==================== 构造函数 ====================
 
 // New 创建一个新的 AppError
-func New(code ErrorCode, message string) *AppError {
+func New(code reason.Reason, message string) *AppError {
 	return &AppError{
 		Code:     code,
 		Message:  message,
@@ -50,7 +52,7 @@ func New(code ErrorCode, message string) *AppError {
 
 // Wrap 包装一个已有错误，添加业务错误码
 // 用于将底层错误（如数据库错误）转换为业务错误
-func Wrap(code ErrorCode, message string, cause error) *AppError {
+func Wrap(code reason.Reason, message string, cause error) *AppError {
 	return &AppError{
 		Code:     code,
 		Message:  message,
@@ -69,33 +71,33 @@ func (e *AppError) WithDetails(details []FieldError) *AppError {
 
 // InvalidParams 创建参数验证失败错误
 func InvalidParams(message string) *AppError {
-	return New(ErrCodeInvalidParams, message)
+	return New(reason.InvalidParams, message)
 }
 
 // InvalidParamsWithDetails 创建带字段详情的参数验证失败错误
 func InvalidParamsWithDetails(message string, details []FieldError) *AppError {
-	return New(ErrCodeInvalidParams, message).WithDetails(details)
+	return New(reason.InvalidParams, message).WithDetails(details)
 }
 
 // NotFound 创建资源不存在错误
 func NotFound(message string) *AppError {
-	return New(ErrCodeNotFound, message)
+	return New(reason.NotFound, message)
 }
 
 // Internal 创建内部错误
 // cause 参数用于记录原始错误（日志用），不会暴露给客户端
 func Internal(message string, cause error) *AppError {
-	return Wrap(ErrCodeInternal, message, cause)
+	return Wrap(reason.InternalError, message, cause)
 }
 
 // Unauthorized 创建未授权错误
 func Unauthorized(message string) *AppError {
-	return New(ErrCodeUnauthorized, message)
+	return New(reason.Unauthorized, message)
 }
 
 // Forbidden 创建禁止访问错误
 func Forbidden(message string) *AppError {
-	return New(ErrCodeForbidden, message)
+	return New(reason.Forbidden, message)
 }
 
 // ==================== 验证错误转换 ====================

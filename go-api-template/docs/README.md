@@ -39,7 +39,8 @@
   - DTO 是什么；DTO 与 Proto 的关系和协作；开发流程；在项目中实践自动验证
 - **[012. 统一错误处理](notes/012-unified-error-handling.md)**
   - AppError 类型设计；错误码体系；验证错误转换；友好错误消息
-- **013. 统一响应格式** (待创建)
+- **[013. 统一响应格式](notes/013-unified-response.md)**
+  - Response 结构设计；成功/错误响应统一；SuccessJSON/ErrorJSON 工具函数
 - **014. 中间件入门** (待创建)
 - **015. Ent ORM 入门** (待创建)
 

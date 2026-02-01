@@ -50,17 +50,17 @@ func (uc *GreeterUsecase) SayHello(ctx context.Context, name string) (*Greeter, 
 		return nil, fmt.Errorf("failed to get count: %w", err)
 	}
 
-	// 构建问候消息
+	// 构建问候消息,sprintf用于格式化字符串，不输出到控制台，而是返回一个字符串
 	message := fmt.Sprintf("Hello, %s! You are visitor #%d.", name, count+1)
 
-	// 创建问候记录
+	// 创建问候记录,greeter 是问候记录的结构体，且没有 ID
 	greeter := &Greeter{
 		Name:      name,
 		Message:   message,
 		CreatedAt: time.Now(),
 	}
 
-	// 保存到存储
+	// 保存到存储,saved 是保存后的问候记录，就是 greeter 的副本，但是有 ID
 	saved, err := uc.repo.Save(ctx, greeter)
 	if err != nil {
 		return nil, fmt.Errorf("failed to save greeter: %w", err)
