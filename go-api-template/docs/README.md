@@ -41,7 +41,8 @@
   - AppError 类型设计；错误码体系；验证错误转换；友好错误消息
 - **[013. 统一响应格式](notes/013-unified-response.md)**
   - Response 结构设计；成功/错误响应统一；SuccessJSON/ErrorJSON 工具函数
-- **014. 中间件入门** (待创建)
+- **[014. 中间件](notes/014-middleware.md)**
+  - 中间件概念与洋葱模型；RequestID 请求追踪；Recovery Panic 恢复；404/405 统一处理
 - **015. Ent ORM 入门** (待创建)
 
 ---

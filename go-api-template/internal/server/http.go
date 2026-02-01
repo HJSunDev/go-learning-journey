@@ -9,6 +9,7 @@ import (
 	"go-api-template/internal/conf"
 	"go-api-template/internal/pkg/apperrors"
 	"go-api-template/internal/server/dto"
+	"go-api-template/internal/server/middleware"
 	"go-api-template/internal/server/response"
 	"go-api-template/internal/service"
 )
@@ -20,7 +21,18 @@ func NewHTTPServer(cfg *conf.Config, greeterSvc *service.GreeterService) *HTTPSe
 	// 根据环境设置 Gin 模式
 	setGinMode(cfg)
 
-	engine := gin.Default()
+	// 使用 gin.New() 创建空白引擎，手动控制中间件
+	// 不使用 gin.Default()，因为它内置的 Recovery 返回非 JSON 格式
+	engine := gin.New()
+
+	// 注册中间件（顺序重要）
+	// 1. RequestID - 请求追踪
+	// 2. Recovery - Panic 恢复，返回统一 JSON 格式
+	// 3. Logger - 请求日志
+	middleware.Register(engine)
+
+	// 注册路由级别的错误处理（404、405）
+	middleware.RegisterRouteHandlers(engine)
 
 	// 健康检查端点
 	engine.GET("/health", func(c *gin.Context) {
