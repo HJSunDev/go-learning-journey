@@ -43,7 +43,9 @@
   - Response 结构设计；成功/错误响应统一；SuccessJSON/ErrorJSON 工具函数
 - **[014. 中间件](notes/014-middleware.md)**
   - 中间件概念与洋葱模型；RequestID 请求追踪；Recovery Panic 恢复；404/405 统一处理
-- **015. Ent ORM 入门** (待创建)
+- **[015. Swagger 接口文档集成](notes/015-swagger-api-documentation.md)**
+  - swag + gin-swagger 工具链；全局注释与 API 注释语法；Swagger UI 配置；环境隔离最佳实践
+- **016. Ent ORM 入门** (待创建)
 
 ---
 

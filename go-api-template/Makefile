@@ -1,4 +1,4 @@
-.PHONY: all build run clean proto proto-lint proto-format wire help
+.PHONY: all build run clean proto proto-lint proto-format wire swagger help
 
 # 默认目标
 all: help
@@ -31,6 +31,11 @@ proto-format:
 wire:
 	wire ./cmd/server/
 
+# 生成 Swagger 文档
+# 输出到 internal/swagger，包名为 swagger
+swagger:
+	swag init -g cmd/server/main.go -o internal/swagger --packageName swagger --parseDependency --parseInternal
+
 # 整理依赖
 tidy:
 	go mod tidy
@@ -49,6 +54,7 @@ help:
 	@echo "  proto-lint   - Lint check proto files"
 	@echo "  proto-format - Format proto files"
 	@echo "  wire         - Generate dependency injection code"
+	@echo "  swagger      - Generate Swagger API documentation"
 	@echo "  tidy         - Run go mod tidy"
 	@echo "  test         - Run tests"
 	@echo ""

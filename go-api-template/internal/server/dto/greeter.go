@@ -13,7 +13,7 @@ type SayHelloRequest struct {
 	// required: 必填
 	// min=1: 最小长度 1
 	// max=100: 最大长度 100
-	Name string `json:"name" binding:"required,min=1,max=100"`
+	Name string `json:"name" binding:"required,min=1,max=100" example:"World"`
 }
 
 // ToProto 将 DTO 转换为 Proto 类型

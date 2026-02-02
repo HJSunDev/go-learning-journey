@@ -1,0 +1,160 @@
+basePath: /api/v1
+definitions:
+  go-api-template_api_helloworld_v1.SayHelloResponse:
+    properties:
+      message:
+        description: 问候消息
+        type: string
+    type: object
+  go-api-template_internal_pkg_apperrors.FieldError:
+    properties:
+      field:
+        description: 字段名（JSON 格式）
+        type: string
+      message:
+        description: 错误描述
+        type: string
+    type: object
+  go-api-template_internal_pkg_reason.Reason:
+    enum:
+    - SUCCESS
+    - INVALID_PARAMS
+    - UNAUTHORIZED
+    - FORBIDDEN
+    - NOT_FOUND
+    - INTERNAL_ERROR
+    - SERVICE_UNAVAILABLE
+    type: string
+    x-enum-varnames:
+    - Success
+    - InvalidParams
+    - Unauthorized
+    - Forbidden
+    - NotFound
+    - InternalError
+    - ServiceUnavailable
+  go-api-template_internal_server_dto.SayHelloRequest:
+    properties:
+      name:
+        description: |-
+          Name 要问候的用户名称
+          required: 必填
+          min=1: 最小长度 1
+          max=100: 最大长度 100
+        example: World
+        maxLength: 100
+        minLength: 1
+        type: string
+    required:
+    - name
+    type: object
+  go-api-template_internal_server_response.Response:
+    properties:
+      code:
+        allOf:
+        - $ref: '#/definitions/go-api-template_internal_pkg_reason.Reason'
+        description: 业务状态码
+      data:
+        description: 成功时的数据
+      details:
+        description: 失败时的字段错误详情
+        items:
+          $ref: '#/definitions/go-api-template_internal_pkg_apperrors.FieldError'
+        type: array
+      http_code:
+        description: HTTP 状态码
+        type: integer
+      message:
+        description: 状态消息
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: dev@example.com
+    name: 开发者
+  description: 一个基于整洁架构的 Go API 服务模板，用于学习和实践 Go Web 开发
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+  title: Go API Template
+  version: "1.0"
+paths:
+  /greeter/say-hello:
+    post:
+      consumes:
+      - application/json
+      description: 向指定用户发送问候消息，返回问候语和访问计数
+      parameters:
+      - description: 问候请求参数
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/go-api-template_internal_server_dto.SayHelloRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/go-api-template_internal_server_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/go-api-template_api_helloworld_v1.SayHelloResponse'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/go-api-template_internal_server_response.Response'
+        "500":
+          description: 服务内部错误
+          schema:
+            $ref: '#/definitions/go-api-template_internal_server_response.Response'
+      summary: 发送问候
+      tags:
+      - greeter
+  /greeter/say-hello/{name}:
+    get:
+      consumes:
+      - application/json
+      description: 通过 URL 路径参数向指定用户发送问候消息
+      parameters:
+      - description: 用户名称
+        in: path
+        maxLength: 100
+        minLength: 1
+        name: name
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 成功
+          schema:
+            allOf:
+            - $ref: '#/definitions/go-api-template_internal_server_response.Response'
+            - properties:
+                data:
+                  $ref: '#/definitions/go-api-template_api_helloworld_v1.SayHelloResponse'
+              type: object
+        "400":
+          description: 请求参数错误
+          schema:
+            $ref: '#/definitions/go-api-template_internal_server_response.Response'
+        "500":
+          description: 服务内部错误
+          schema:
+            $ref: '#/definitions/go-api-template_internal_server_response.Response'
+      summary: 发送问候（URL参数）
+      tags:
+      - greeter
+securityDefinitions:
+  BearerAuth:
+    description: '输入格式: Bearer {token}'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

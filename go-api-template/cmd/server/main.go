@@ -1,3 +1,24 @@
+// Go API Template - Swagger 全局信息配置
+// swag 工具会扫描这些注释生成 OpenAPI 规范
+
+// @title           Go API Template
+// @version         1.0
+// @description     一个基于整洁架构的 Go API 服务模板，用于学习和实践 Go Web 开发
+
+// @contact.name   开发者
+// @contact.email  dev@example.com
+
+// @license.name  MIT
+// @license.url   https://opensource.org/licenses/MIT
+
+// @host      localhost:8080
+// @BasePath  /api/v1
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+// @description 输入格式: Bearer {token}
+
 package main
 
 import (
@@ -49,10 +70,11 @@ func main() {
 	// ========================================
 	log.Printf("Starting server on %s", httpServer.Addr())
 	log.Println("API endpoints:")
-	log.Println("  GET  /health                       - Health check")
-	log.Println("  GET  /                             - Service info")
-	log.Println("  POST /api/v1/greeter/say-hello     - Say hello (JSON body)")
+	log.Println("  GET  /health                         - Health check")
+	log.Println("  GET  /                               - Service info")
+	log.Println("  POST /api/v1/greeter/say-hello       - Say hello (JSON body)")
 	log.Println("  GET  /api/v1/greeter/say-hello/:name - Say hello (URL param)")
+	log.Println("  GET  /swagger/*                      - Swagger UI")
 
 	// 启动 HTTP 服务器（非阻塞）
 	errChan := httpServer.Start()
