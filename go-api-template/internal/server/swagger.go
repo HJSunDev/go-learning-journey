@@ -2,6 +2,8 @@
 package server
 
 import (
+	"net/http"
+
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -15,12 +17,23 @@ func registerSwagger(engine *gin.Engine, env string) {
 		return
 	}
 
-	// 注册 Swagger UI 路由
-	// 访问 /swagger/index.html 可查看 API 文档
-	engine.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+	// 缓存 Handler，避免每次请求都创建新实例
+	swaggerHandler := ginSwagger.WrapHandler(swaggerFiles.Handler)
 
-	// 访问 /swagger 时自动重定向到 /swagger/index.html
+	// 注册 Swagger UI 路由
+	// 包装 Handler 以处理根路径重定向
+	// 当访问 /swagger/ 时，*any 参数为 "/"，gin-swagger 无法处理，需要手动重定向
+	engine.GET("/swagger/*any", func(c *gin.Context) {
+		any := c.Param("any")
+		if any == "/" {
+			c.Redirect(http.StatusMovedPermanently, "/swagger/index.html")
+			return
+		}
+		swaggerHandler(c)
+	})
+
+	// 访问 /swagger（无尾部斜杠）时重定向到 /swagger/index.html
 	engine.GET("/swagger", func(c *gin.Context) {
-		c.Redirect(301, "/swagger/index.html")
+		c.Redirect(http.StatusMovedPermanently, "/swagger/index.html")
 	})
 }
