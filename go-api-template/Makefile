@@ -1,5 +1,14 @@
 .PHONY: all build run clean proto proto-lint proto-format wire swagger help
 
+# 跨平台命令：开发/CI 可能在 Windows 或 Unix 下执行
+ifeq ($(OS),Windows_NT)
+	RM   := rmdir /s /q
+	MKDIR := mkdir
+else
+	RM   := rm -rf
+	MKDIR := mkdir -p
+endif
+
 # 默认目标
 all: help
 
@@ -11,9 +20,9 @@ build:
 run:
 	go run ./cmd/server
 
-# 清理构建产物
+# 清理构建产物（- 前缀：目录不存在时也不报错退出）
 clean:
-	rm -rf bin/
+	-$(RM) bin
 
 # 生成 Proto 代码（包含 lint 检查）
 proto: proto-lint

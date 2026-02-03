@@ -22,7 +22,7 @@ func registerSwagger(engine *gin.Engine, env string) {
 
 	// 注册 Swagger UI 路由
 	// 包装 Handler 以处理根路径重定向
-	// 当访问 /swagger/ 时，*any 参数为 "/"，gin-swagger 无法处理，需要手动重定向
+	// 当访问 /swagger/ 时，*any 为 "/"，gin-swagger 无法处理，手动重定向到 index.html
 	engine.GET("/swagger/*any", func(c *gin.Context) {
 		any := c.Param("any")
 		if any == "/" {
@@ -32,7 +32,7 @@ func registerSwagger(engine *gin.Engine, env string) {
 		swaggerHandler(c)
 	})
 
-	// 访问 /swagger（无尾部斜杠）时重定向到 /swagger/index.html
+	// '/swagger'（无尾部斜杠）不匹配 /swagger/*any，需单独注册
 	engine.GET("/swagger", func(c *gin.Context) {
 		c.Redirect(http.StatusMovedPermanently, "/swagger/index.html")
 	})
